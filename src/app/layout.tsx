@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
-import { ClerkProvider, SignInButton, SignUpButton, Show, UserButton } from '@clerk/nextjs';
+import { ClerkProvider } from '@clerk/nextjs';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Premises Asset Map',
-  description: 'Asset management for trust properties',
+  title: 'Redhill Village Hall',
+  description: 'Community hall hire and asset management',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -11,15 +12,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <ClerkProvider>
-          <header>
-            <Show when="signed-out">
-              <SignInButton />
-              <SignUpButton />
-            </Show>
-            <Show when="signed-in">
-              <UserButton />
-            </Show>
-          </header>
           {children}
         </ClerkProvider>
       </body>

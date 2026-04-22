@@ -1,15 +1,29 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-const isPublicRoute = createRouteMatcher([
+const isPublicAuthRoute = createRouteMatcher([
   '/sign-in(.*)',
   '/sign-up(.*)',
   '/api/auth/provision',
 ]);
 
+function isAppHost(req: NextRequest): boolean {
+  const host = req.headers.get('host') ?? '';
+  return host.startsWith('app.') || host.startsWith('app.localhost');
+}
+
 export default clerkMiddleware(async (auth, req) => {
-  if (!isPublicRoute(req)) {
-    await auth.protect();
+  if (isAppHost(req)) {
+    // Redirect root to dashboard on the app subdomain
+    if (req.nextUrl.pathname === '/') {
+      return NextResponse.redirect(new URL('/dashboard', req.url));
+    }
+    // Protect all non-auth routes
+    if (!isPublicAuthRoute(req)) {
+      await auth.protect();
+    }
   }
+  // www subdomain — no auth required, pass through
 });
 
 export const config = {
