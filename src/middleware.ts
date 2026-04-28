@@ -9,7 +9,12 @@ const isPublicAuthRoute = createRouteMatcher([
 
 function isAppHost(req: NextRequest): boolean {
   const host = req.headers.get('host') ?? '';
-  return host.startsWith('app.') || host.startsWith('app.localhost');
+  // Production app subdomain
+  if (host.startsWith('app.')) return true;
+  // Local dev — localhost and LAN IP addresses (e.g. 192.168.x.x for mobile testing)
+  if (host.startsWith('localhost') || host.startsWith('127.0.0.1')) return true;
+  if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(host)) return true;
+  return false;
 }
 
 export default clerkMiddleware(async (auth, req) => {

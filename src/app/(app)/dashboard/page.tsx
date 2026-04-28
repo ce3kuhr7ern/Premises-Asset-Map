@@ -1,7 +1,18 @@
+import HelpIcon from '@/components/help/HelpIcon';
+import HelpBanner from '@/components/help/HelpBanner';
+
 export default function DashboardPage() {
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-900 mb-6">Dashboard</h1>
+      <h1 className="text-2xl font-semibold text-gray-900 mb-6 inline-flex items-center gap-2">
+        Dashboard
+        <HelpIcon topic="dashboard-overview" />
+      </h1>
+
+      <HelpBanner
+        topic="dashboard-overview"
+        text="Welcome. The dashboard is your at-a-glance view — what's overdue, what's due soon, and recent activity across the trust. Click any card to dig in. The sidebar on the left takes you to each major register."
+      />
 
       {/* Summary cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

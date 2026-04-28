@@ -3,18 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "db:seed": "tsx src/db/seed.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.91.1",
     "@clerk/nextjs": "^7.2.4",
     "@neondatabase/serverless": "^0.10.4",
+    "@vercel/blob": "^2.3.3",
     "autoprefixer": "^10.5.0",
     "drizzle-orm": "^0.45.2",
     "lucide-react": "^1.8.0",
@@ -22,8 +25,10 @@
     "postcss": "^8.5.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-zoom-pan-pinch": "^4.0.3",
     "svix": "^1.91.1",
-    "tailwindcss": "^3.4.19"
+    "tailwindcss": "^3.4.19",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@types/node": "^22",

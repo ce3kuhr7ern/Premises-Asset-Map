@@ -10,14 +10,14 @@ interface CanContext {
   docTypeId?: string;
 }
 
-async function getActiveMemberships(userId: string) {
+async function getActiveMemberships(clerkUserId: string) {
   return db
     .select()
     .from(memberships)
     .innerJoin(users, eq(users.id, memberships.userId))
     .where(
       and(
-        eq(memberships.userId, userId),
+        eq(users.clerkId, clerkUserId),
         eq(memberships.isActive, true),
         eq(users.isActive, true),
       ),

@@ -11,6 +11,9 @@ export const Permission = {
   UploadCertificate:   'certificate:upload',
   ManageUsers:         'users:manage',
   ViewAuditLog:        'auditlog:view',
+  ManageAssetTypes:    'asset-types:manage',
+  ViewContractors:     'contractors:view',
+  ManageContractors:   'contractors:manage',
 } as const;
 
 export type Permission = typeof Permission[keyof typeof Permission];
@@ -20,14 +23,17 @@ export type AppRole = 'trust_admin' | 'trustee' | 'club_manager' | 'club_user' |
 export const ROLE_PERMISSIONS: Record<AppRole, Permission[]> = {
   trust_admin: Object.values(Permission),
   trustee: [
-    Permission.ViewDocument, Permission.ViewAsset,
-    Permission.ViewCompliance, Permission.ApproveCompliance,
+    Permission.ViewDocument, Permission.UploadDocument,
+    Permission.ViewAsset,
+    Permission.ViewCompliance, Permission.ManageCompliance, Permission.ApproveCompliance,
+    Permission.ViewContractors, Permission.ManageContractors,
     Permission.ViewAuditLog,
   ],
   club_manager: [
     Permission.ViewDocument, Permission.UploadDocument, Permission.DeleteDocument,
     Permission.ViewAsset, Permission.EditAsset,
     Permission.ViewCompliance, Permission.ManageCompliance,
+    Permission.ViewContractors, Permission.ManageContractors,
     Permission.UploadCertificate,
     Permission.ManageUsers,
   ],
@@ -35,6 +41,7 @@ export const ROLE_PERMISSIONS: Record<AppRole, Permission[]> = {
     Permission.ViewDocument, Permission.UploadDocument,
     Permission.ViewAsset, Permission.EditAsset,
     Permission.ViewCompliance,
+    Permission.ViewContractors,
     Permission.UploadCertificate,
   ],
   contractor: [
@@ -43,6 +50,6 @@ export const ROLE_PERMISSIONS: Record<AppRole, Permission[]> = {
   ],
   auditor: [
     Permission.ViewDocument, Permission.ViewAsset,
-    Permission.ViewCompliance, Permission.ViewAuditLog,
+    Permission.ViewCompliance, Permission.ViewContractors, Permission.ViewAuditLog,
   ],
 };
